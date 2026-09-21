@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Data Avengers Challenge</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Segoe UI',sans-serif;
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    background:
+    radial-gradient(circle at top,
+    #124d90,
+    #051525);
+
+    color:white;
+
+}
+
+.card{
+
+    width:100%;
+    max-width:450px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:24px;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:
+    0 0 30px rgba(65,182,230,.4);
+
+}
+
+.logo{
+
+    font-size:80px;
+
+}
+
+h1{
+
+    margin:15px 0;
+
+    font-size:2rem;
+
+}
+
+.subtitle{
+
+    line-height:1.6;
+
+    opacity:.9;
+
+    margin-bottom:25px;
+
+}
+
+.challenge{
+
+    font-size:55px;
+
+    font-weight:800;
+
+    margin:25px 0;
+
+}
+
+input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:24px;
+
+    text-align:center;
+
+}
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#005EB8;
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+button:hover{
+
+    background:#003087;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+.teamIcon{
+
+    font-size:110px;
+
+    margin-bottom:15px;
+
+}
+
+.teamName{
+
+    font-size:36px;
+
+    font-weight:900;
+
+    margin-bottom:15px;
+
+}
+
+.breakout{
+
+    font-size:20px;
+
+    font-weight:bold;
+
+}
+
+.footer{
+
+    margin-top:20px;
+
+    opacity:.75;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- WELCOME SCREEN -->
+
+<div id="welcomeScreen">
+
+<div class="logo">🛡️</div>
+
+<h1>Data Avengers Challenge</h1>
+
+<p class="subtitle">
+
+Welcome Recruit.
+
+<br><br>
+
+Complete the S.H.I.E.L.D verification challenge
+to discover your Avengers Team.
+
+</p>
+
+<button onclick="startChallenge()">
+
+Begin Challenge
+
+</button>
+
+</div>
+
+
+<!-- CHALLENGE SCREEN -->
+
+<div id="challengeScreen"
+class="hidden">
+
+<h2>S.H.I.E.L.D Verification</h2>
+
+<div id="challenge"
+class="challenge">
+</div>
+
+<input
+type="number"
+id="answerInput"
+placeholder="Enter Answer">
+
+<button onclick="revealTeam()">
+
+Verify Identity
+
+</button>
+
+</div>
+
+
+<!-- RESULT SCREEN -->
+
+<div id="resultScreen"
+class="hidden">
+
+<div id="teamIcon"
+class="teamIcon"></div>
+
+<div id="teamName"
+class="teamName"></div>
+
+<div id="breakoutRoom"
+class="breakout"></div>
+
+<div class="footer">
+
+Proceed to your breakout room.
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let correctAnswer;
+
+const teams = {
+
+1:{
+    name:"TEAM THOR",
+    icon:"⚡",
+    room:"Breakout Room A"
+},
+
+2:{
+    name:"TEAM BLACK PANTHER",
+    icon:"🐾",
+    room:"Breakout Room B"
+}
+
+};
+
+function startChallenge(){
+
+    document
+    .getElementById("welcomeScreen")
+    .classList.add("hidden");
+
+    document
+    .getElementById("challengeScreen")
+    .classList.remove("hidden");
+
+    // Generates answer = 1 or 2
+
+    correctAnswer =
+    Math.floor(Math.random()*2)+1;
+
+    let bigger =
+    Math.floor(Math.random()*50)+50;
+
+    let smaller =
+    bigger - correctAnswer;
+
+    document
+    .getElementById("challenge")
+    .innerHTML =
+    `${bigger} - ${smaller} = ?`;
+
+}
+
+function revealTeam(){
+
+    const userAnswer =
+    parseInt(
+        document
+        .getElementById("answerInput")
+        .value
+    );
+
+    if(isNaN(userAnswer)){
+
+        alert(
+        "Please enter an answer."
+        );
+
+        return;
+    }
+
+    if(userAnswer !== correctAnswer){
+
+        alert(
+        "Incorrect answer. Please try again."
+        );
+
+        return;
+    }
+
+    document
+    .getElementById("challengeScreen")
+    .classList.add("hidden");
+
+    const team =
+    teams[correctAnswer];
+
+    document
+    .getElementById("teamIcon")
+    .innerHTML =
+    team.icon;
+
+    document
+    .getElementById("teamName")
+    .innerHTML =
+    team.name;
+
+    document
+    .getElementById("breakoutRoom")
+    .innerHTML =
+    team.room;
+
+    document
+    .getElementById("resultScreen")
+    .classList.remove("hidden");
+
+}
+
+</script>
+
+</body>
+
+</html>
