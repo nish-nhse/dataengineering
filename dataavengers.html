@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Avengers Initiative</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top,
+    #1c5e9f,
+    #071b2f);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+}
+
+.container{
+    width:100%;
+    max-width:430px;
+    padding:20px;
+    text-align:center;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+    border-radius:25px;
+    padding:35px 25px;
+    box-shadow:
+      0 0 25px rgba(65,182,230,.4);
+}
+
+.logo{
+    font-size:70px;
+}
+
+h1{
+    margin:15px 0;
+}
+
+.subtitle{
+    opacity:.85;
+    margin-bottom:25px;
+}
+
+button{
+
+    background:#005EB8;
+
+    border:none;
+
+    color:white;
+
+    width:100%;
+
+    padding:18px;
+
+    border-radius:16px;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+button:hover{
+    background:#003087;
+}
+
+.hidden{
+    display:none;
+}
+
+.result{
+
+    animation:reveal .7s ease;
+}
+
+.teamName{
+    font-size:40px;
+    font-weight:800;
+    margin-top:15px;
+}
+
+.teamIcon{
+    font-size:80px;
+}
+
+@keyframes reveal{
+
+from{
+    opacity:0;
+    transform:scale(.8);
+}
+
+to{
+    opacity:1;
+    transform:scale(1);
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div id="start">
+
+<div class="logo">🛡️</div>
+
+<h1>Avengers Initiative</h1>
+
+<p class="subtitle">
+Welcome Recruit.
+<br><br>
+Press the button below to discover your team.
+</p>
+
+<button onclick="assignTeam()">
+Join The Initiative
+</button>
+
+</div>
+
+<div id="result" class="hidden result">
+
+<div class="teamIcon" id="icon"></div>
+
+<h2>You Have Been Assigned To</h2>
+
+<div class="teamName" id="team"></div>
+
+<br>
+
+<p>
+Proceed to your team table.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const teams = [
+
+{
+name:"THOR",
+icon:"⚡"
+},
+
+{
+name:"IRON MAN",
+icon:"🤖"
+},
+
+{
+name:"CAPTAIN AMERICA",
+icon:"🛡"
+},
+
+{
+name:"BLACK PANTHER",
+icon:"🐾"
+},
+
+{
+name:"SPIDER-MAN",
+icon:"🕸"
+},
+
+{
+name:"HULK",
+icon:"💚"
+}
+
+];
+
+function assignTeam(){
+
+document.getElementById("start").innerHTML=
+"<h2>Accessing S.H.I.E.L.D Database...</h2>";
+
+setTimeout(()=>{
+
+const team =
+teams[Math.floor(Math.random()*teams.length)];
+
+document.getElementById("start").style.display="none";
+
+document.getElementById("team").innerText=
+team.name;
+
+document.getElementById("icon").innerText=
+team.icon;
+
+document.getElementById("result").classList.remove("hidden");
+
+},2000);
+
+}
+
+</script>
+
+</body>
+</html>
