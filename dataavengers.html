@@ -292,39 +292,33 @@ document
 
 }
 
-function revealTeam(){
+<div id="challengeScreen" class="hidden">
 
-document
-.getElementById("challengeScreen")
-.classList.add("hidden");
+    <h2>S.H.I.E.L.D Verification</h2>
 
-setTimeout(()=>{
+    <div id="challenge"
+         class="challenge"></div>
 
-const team =
-teams[answer];
+    <input
+        id="answerInput"
+        type="number"
+        placeholder="Enter Answer"
+        style="
+            width:100%;
+            padding:15px;
+            border-radius:12px;
+            border:none;
+            margin-bottom:15px;
+            font-size:20px;
+            text-align:center;
+        "
+    >
 
-document
-.getElementById("teamName")
-.innerText=
-team.name;
+    <button onclick="revealTeam()">
+        Verify Identity
+    </button>
 
-document
-.getElementById("teamIcon")
-.innerText=
-team.icon;
-
-document
-.getElementById("tableInfo")
-.innerText=
-`Proceed to ${team.table}`;
-
-document
-.getElementById("result")
-.classList.remove("hidden");
-
-},500);
-
-}
+</div>
 
 </script>
 
