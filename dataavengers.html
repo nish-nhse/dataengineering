@@ -24,16 +24,16 @@ font-family:'Segoe UI',sans-serif;
 
 background:
 radial-gradient(circle at top,
-#1f5f9d,
+#1c5e9f,
 #071b2f);
 
 min-height:100vh;
 
 display:flex;
 
-justify-content:center;
-
 align-items:center;
+
+justify-content:center;
 
 padding:20px;
 
@@ -44,52 +44,42 @@ color:white;
 .card{
 
 width:100%;
-max-width:420px;
+max-width:450px;
 
 background:rgba(255,255,255,.08);
 
-backdrop-filter:blur(15px);
-
-border-radius:24px;
+backdrop-filter:blur(12px);
 
 padding:30px;
+
+border-radius:24px;
 
 text-align:center;
 
 box-shadow:
-0 0 20px rgba(65,182,230,.3);
+0 0 20px rgba(65,182,230,.4);
 
 }
 
 .logo{
 
 font-size:70px;
-margin-bottom:10px;
 
 }
 
 h1{
 
-font-size:32px;
-margin-bottom:10px;
+margin:15px 0;
+
+font-size:2rem;
 
 }
 
-.subtitle{
+p{
 
-opacity:.85;
 line-height:1.6;
 
-margin-bottom:25px;
-
-}
-
-.challenge{
-
-font-size:48px;
-font-weight:bold;
-
-margin:25px 0;
+opacity:.9;
 
 }
 
@@ -99,19 +89,21 @@ width:100%;
 
 padding:16px;
 
-font-size:20px;
-
-font-weight:700;
+margin-top:20px;
 
 border:none;
 
 border-radius:14px;
 
+font-size:18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
 background:#005EB8;
 
 color:white;
-
-cursor:pointer;
 
 }
 
@@ -121,35 +113,73 @@ background:#003087;
 
 }
 
+.challenge{
+
+font-size:48px;
+
+font-weight:bold;
+
+margin:25px 0;
+
+}
+
+input{
+
+width:100%;
+
+padding:15px;
+
+font-size:22px;
+
+text-align:center;
+
+border-radius:12px;
+
+border:none;
+
+margin-top:10px;
+
+}
+
 .hidden{
 
 display:none;
 
 }
 
-.teamIcon{
+.team-icon{
 
-font-size:80px;
+font-size:90px;
 
-margin-top:10px;
+margin-bottom:10px;
 
 }
 
-.teamName{
+.team-name{
 
 font-size:36px;
 
 font-weight:900;
 
-margin:10px 0;
+margin-bottom:15px;
 
 }
 
-.tableInfo{
+.table{
+
+font-size:20px;
+
+font-weight:600;
+
+}
+
+.footer{
 
 margin-top:15px;
 
-font-size:20px;
+font-size:14px;
+
+opacity:.7;
 
 }
 
@@ -169,20 +199,20 @@ margin-top:20px;
 
 <div class="card">
 
-<div id="start">
+<div id="welcomeScreen">
 
 <div class="logo">🛡️</div>
 
 <h1>Avengers Initiative</h1>
 
-<p class="subtitle">
+<p>
 
-Welcome Recruit
+Welcome Recruit.
 
 <br><br>
 
-Complete your S.H.I.E.L.D verification challenge
-to discover your team.
+Complete your S.H.I.E.L.D verification challenge to
+discover your Avengers team.
 
 </p>
 
@@ -194,41 +224,56 @@ Begin Verification
 
 </div>
 
-<div id="challengeScreen"
-class="hidden">
+
+<div id="challengeScreen" class="hidden">
 
 <h2>S.H.I.E.L.D Verification</h2>
 
 <div id="challenge"
-class="challenge"></div>
+class="challenge">
+</div>
 
-<button onclick="revealTeam()">
+<input
+type="number"
+id="answerInput"
+placeholder="Enter your answer">
 
-Reveal My Team
+<button onclick="verifyAnswer()">
+
+Verify Identity
 
 </button>
 
 </div>
 
-<div id="result"
-class="hidden">
+
+<div id="resultScreen" class="hidden">
 
 <div id="teamIcon"
-class="teamIcon"></div>
-
-<h2>WELCOME TO</h2>
+class="team-icon">
+</div>
 
 <div id="teamName"
-class="teamName"></div>
+class="team-name">
+</div>
 
 <div id="tableInfo"
-class="tableInfo"></div>
+class="table">
+</div>
+
+<div class="footer">
+
+Report to your allocated team area.
+
+</div>
 
 </div>
 
 </div>
 
 <script>
+
+let correctAnswer;
 
 const teams = {
 
@@ -264,61 +309,90 @@ table:"Table E"
 
 };
 
-let answer = 1;
-
 function generateChallenge(){
 
 document
-.getElementById("start")
+.getElementById("welcomeScreen")
 .classList.add("hidden");
 
 document
 .getElementById("challengeScreen")
 .classList.remove("hidden");
 
-answer =
+/*
+Generates answer between 1 and 5
+*/
+
+correctAnswer =
 Math.floor(Math.random()*5)+1;
 
-const a =
-Math.floor(Math.random()*50)+20;
+const largerNumber =
+Math.floor(Math.random()*50)+50;
 
-const b =
-a-answer;
+const smallerNumber =
+largerNumber - correctAnswer;
 
 document
 .getElementById("challenge")
-.innerHTML=
-`${a} - ${b} = ?`;
+.innerHTML =
+`${largerNumber} - ${smallerNumber} = ?`;
 
 }
 
-<div id="challengeScreen" class="hidden">
+function verifyAnswer(){
 
-    <h2>S.H.I.E.L.D Verification</h2>
+const entered =
+parseInt(
+document
+.getElementById("answerInput")
+.value
+);
 
-    <div id="challenge"
-         class="challenge"></div>
+if(isNaN(entered)){
 
-    <input
-        id="answerInput"
-        type="number"
-        placeholder="Enter Answer"
-        style="
-            width:100%;
-            padding:15px;
-            border-radius:12px;
-            border:none;
-            margin-bottom:15px;
-            font-size:20px;
-            text-align:center;
-        "
-    >
+alert(
+"Please enter an answer."
+);
 
-    <button onclick="revealTeam()">
-        Verify Identity
-    </button>
+return;
+}
 
-</div>
+if(entered !== correctAnswer){
+
+alert(
+"Incorrect answer. Please try again."
+);
+
+return;
+}
+
+document
+.getElementById("challengeScreen")
+.classList.add("hidden");
+
+const selectedTeam =
+teams[correctAnswer];
+
+document
+.getElementById("teamIcon")
+.innerHTML =
+selectedTeam.icon;
+
+document
+.getElementById("teamName")
+.innerHTML =
+selectedTeam.name;
+
+document
+.getElementById("tableInfo")
+.innerHTML =
+`Proceed to ${selectedTeam.table}`;
+
+document
+.getElementById("resultScreen")
+.classList.remove("hidden");
+
+}
 
 </script>
 
